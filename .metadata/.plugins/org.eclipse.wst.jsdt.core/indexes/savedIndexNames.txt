@@ -1,10 +1,9 @@
-INDEX VERSION 1.4+C:\Users\rims2\Desktop\STS\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3576193991.index
-2135586134.index
-3271193799.index
+INDEX VERSION 1.4+C:\Users\rims2\Desktop\JSPBackup\STS\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2865454290.index
+325097383.index
 2335469674.index
-3422214851.index
+1909701916.index
+2135586134.index
 1707052480.index
-1762354206.index
-281530459.index
-438727916.index
+1125241464.index
+3271193799.index
