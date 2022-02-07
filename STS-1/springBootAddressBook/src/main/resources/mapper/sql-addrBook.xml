@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitc.kdh.mapper.AddressMapper">
+
+	<select id="selectAddressList" resultType="com.bitc.kdh.dto.AddressDto">
+		<![CDATA[ 
+			SELECT
+			seq, user_name, user_email, user_phone, user_addr, CASE WHEN user_gender = 'M' THEN '남자' ELSE '여자' END AS user_gender
+			 FROM 
+			 	t_member 
+			 WHERE 
+			 	deleted_yn = 'N'
+			 ORDER BY
+			 	seq
+		]]>
+	</select>
+
+	<insert id="insertAddress" parameterType="com.bitc.kdh.dto.AddressDto">
+		<![CDATA[
+			INSERT INTO
+				t_member (seq, user_id, user_pw, user_name, user_email, user_phone, user_addr, user_gender) 
+			VALUES
+				(#{seq}, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{userPhone}, #{userAddr}, #{userGender})
+		]]>
+	</insert>
+
+	<select id="selectAddressDetail" parameterType="int" resultType="com.bitc.kdh.dto.AddressDto">
+		<![CDATA[ 
+		SELECT
+		 seq, user_name, user_email, user_phone, user_addr, CASE WHEN user_gender = 'M' THEN '남자' ELSE '여자' END AS user_gender
+		 FROM
+		 t_member 
+		 WHERE
+		 seq = #{seq} AND deleted_yn = 'N'
+	]]>
+	</select>
+
+	<update id="deleteAddress" parameterType="int">
+		<![CDATA[ 
+	 	UPDATE t_member
+	 	SET deleted_yn = 'Y'
+	 	WHERE seq = #{seq}
+	 	]]>
+	</update>
+
+	<update id="updateAddress" parameterType="com.bitc.kdh.dto.AddressDto">
+		<![CDATA[ 
+	 	UPDATE 
+	 	t_member
+	 	SET user_name = #{userName}, user_email = #{userEmail},
+	 		user_phone = #{userPhone}, user_addr = #{userAddr}, user_gender = #{userGender}
+	 	WHERE seq = #{seq}
+	 	AND deleted_yn = 'N';
+	 	]]>
+	</update>
+	<select id="selectBoardDetail" parameterType="int" resultType="com.bitc.board.dto.BoardDto">
+		<![CDATA[
+			SELECT
+				idx, title, contents, creator_id, created_date, update_id, updated_date, hit_cnt
+			FROM
+				t_board
+			WHERE
+				idx = #{idx}
+			AND
+				deleted_yn = 'N'
+		]]>
+	</select>
+</mapper>

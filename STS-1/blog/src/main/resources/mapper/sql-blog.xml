@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitc.mapper.BlogMapper">
+
+	<select id="selectGuestList" resultType="com.bitc.dto.GuestBookDto">
+		<![CDATA[ 
+			SELECT
+				seq, guest_name, guest_pw, guest_contents,
+				DATE_FORMAT(guest_created_dt, '%Y.%m.%d %H:%i:%s') AS guest_created_dt
+			FROM
+				t_guestbook
+			WHERE 
+			 	deleted_yn = 'N'
+			ORDER BY
+				guest_created_dt DESC
+		]]>
+	</select>
+
+	<insert id="insertGuestBook" parameterType="com.bitc.dto.GuestBookDto" keyProperty="idx">
+		<![CDATA[
+			INSERT INTO
+				t_guestbook (guest_name, guest_pw, guest_contents, guest_created_dt)
+			VALUES
+				(#{guestName}, #{guestPw}, #{guestContents}, NOW())
+		]]>
+	</insert>
+
+	<select id="selectBlogList" resultType="com.bitc.dto.BlogMainDto">
+		<![CDATA[ 
+			SELECT
+				idx, title, contents, creator_id, created_dt, hit_cnt,
+				DATE_FORMAT(created_dt, '%Y.%m.%d %H:%i:%s') AS created_dt
+			FROM
+				t_blog
+			WHERE 
+			 	deleted_yn = 'N'
+			ORDER BY
+				updated_dt DESC
+		]]>
+	</select>
+
+	<select id="getContentByseq" resultType="com.bitc.dto.GuestBookDto">
+		<![CDATA[ 
+			SELECT seq, guest_name, guest_pw, guest_contents
+			FROM
+				t_guestbook
+			WHERE 
+				seq=#{seq}			
+		]]>
+	</select>
+	
+	<update id="updateGuest" parameterType="com.bitc.dto.GuestBookDto">
+		<![CDATA[
+			UPDATE
+				t_guestbook
+			SET
+				guest_contents = #{guestContents}
+			WHERE
+				seq = #{seq}
+		]]>
+	</update>
+	
+	<update id="deleteGuest" parameterType="int">
+		<![CDATA[
+			UPDATE
+				t_guestbook
+			SET
+				deleted_yn = 'Y'
+			WHERE
+				seq = #{seq}
+		]]>
+	</update>
+	<insert id="insertBlog" parameterType="com.bitc.dto.BlogMainDto" useGeneratedKeys="true" keyProperty="idx">
+		<![CDATA[
+			INSERT INTO
+				t_blog (category, title, creator_id, contents, created_dt)
+			VALUES
+				(#{category}, #{title}, #{creatorId}, #{contents}, NOW())
+		]]>
+	</insert>
+</mapper>

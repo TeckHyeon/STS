@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>문제 2 풀이</h3>
+	<div th:each="member : ${members}">
+		<p th:text="${member.userId}"></p>
+		<p th:text="${member.userPw}"></p>
+		<p th:text="${member.userName}"></p>
+		<p th:text="${member.userEmail}"></p>
+	</div>
+	<br>
+	<hr>
+	<div th:if = "${#lists.size(members) > 0}" th:each="item: ${members}">
+		<p th:text="${item.userId}"></p>
+		<p th:text="${item.userPw}"></p>
+		<p th:text="${item.userName}"></p>
+		<p th:text="${item.userEmail}"></p>
+	</div>
+	<div th:unless="${#lists.size(members) > 0}">
+		<p>내용이 없습니다.</p>
+	</div>
+</body>
+</html>
