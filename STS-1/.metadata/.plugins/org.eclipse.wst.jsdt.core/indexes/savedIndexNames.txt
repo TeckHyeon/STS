@@ -1,1 +1,0 @@
-INDEX VERSION 1.4+C:\Users\rims2\Desktop\JSPBackup\STS\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
